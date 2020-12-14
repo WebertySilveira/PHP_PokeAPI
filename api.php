@@ -1,5 +1,6 @@
 <?php
-    for ($pokemon=1; $pokemon <= 5; $pokemon++) { 
+
+    for ($pokemon=1; $pokemon <= 10; $pokemon++) { 
 
         $api = curl_init("https://pokeapi.co/api/v2/pokemon/$pokemon");
         curl_setopt($api, CURLOPT_RETURNTRANSFER, true);
@@ -14,19 +15,32 @@
         echo $json->id;
         echo '.png"> <br>';
 
-        echo '<h2 class"card-title">';
+        echo "<div class='";
+        echo $json->types[0]->type->name;
+        echo "'</div>";
+
+        echo '<h2>';
         echo $json->id;
         echo '. ';
         echo $json->forms[0]->name;
         echo '</h2>';
 
-        echo '<p class="card-subtitle">';
         foreach($json->types as $k => $v) {
-            echo "<h5>";
+            echo "<h4>";
             echo $v->type->name;
-            echo "</h5>";
+            echo "</h4>";
         }
-        echo '</p>';
 
+        echo "<hr>";
+        echo "<h3>Abilities</h3>";
+        foreach($json->abilities as $k => $v) {
+            echo "<h4>";
+            echo $v->ability->name;
+            echo "</h4>";
+        }
+        
+        
+        
+        echo '</li>';
     }
 ?>
